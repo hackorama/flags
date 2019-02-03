@@ -43,18 +43,63 @@ Build an Eclipse project
 $ ./gradlew eclipse 
 ```
  
-Import project into Eclipse  
+Import the project into Eclipse  
 
-
-File -> Import -> Existing Projects into Workspace 
+> File -> Import -> Existing Projects into Workspace 
  
-## Deploy 
+## Deploy Options
+
+Select the data store to use.
 
 ```
-$ java -jar build/libs/flags-all.jar 
+$ ./gradlew build 
+```
 
 ```
- 
+$ ./gradlew run --args='-h'
+Flag Service
+
+Usage : java Main [-jdbc] [-mapdb] [-h]
+   -jdbc  Use H2 JDBC Data Store
+   -mapdb Use Mapdb Key Value Data Store
+   -h     Print this help
+
+```
+
+```
+$ ./gradlew run --args='-jdbc'
+...
+
+2019-02-03 05:38:45:706 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
+                                          data store com.hackorama.flags.data.jdbc.JDBCDataStore
+...
+```
+
+```
+$ ./gradlew run --args='-mapdb'
+...
+
+2019-02-03 05:40:07:246 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
+                                          data store com.hackorama.flags.data.mapdb.MapdbDataStore
+...
+```
+
+```
+$ ./gradlew run
+...
+2019-02-03 05:41:00:876 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
+                                          data store com.hackorama.flags.data.MemoryDataStore
+...
+```
+
+## API 
+
+| Method | URL | Request | Response |
+|--------|-----|---------|----------|
+| GET | `/flags/`  |  | List of all country flags grouped by continent |
+| GET | `/flags/:id`  | | When id is a valid country, return the country flag |
+| GET | `/flags/:id`  | | When id is a valid continent, return all country flags for the continent |
+
 ## Quick Test 
 
 Following curl examples uses three different services 
@@ -159,61 +204,6 @@ $ curl http://localhost:8080/unknown | jq
   "message": null
 }
 ```
-
-## Deploy Options
-
-Select the data store to use.
-
-```
-$ ./gradlew build 
-```
-
-```
-$ ./gradlew run --args='-h'
-Flag Service
-
-Usage : java Main [-jdbc] [-mapdb] [-h]
-   -jdbc  Use H2 JDBC Data Store
-   -mapdb Use Mapdb Key Value Data Store
-   -h     Print this help
-
-```
-
-```
-$ ./gradlew run --args='-jdbc'
-...
-
-2019-02-03 05:38:45:706 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
-                                          data store com.hackorama.flags.data.jdbc.JDBCDataStore
-...
-```
-
-```
-$ ./gradlew run --args='-mapdb'
-...
-
-2019-02-03 05:40:07:246 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
-                                          data store com.hackorama.flags.data.mapdb.MapdbDataStore
-...
-```
-
-```
-$ ./gradlew run
-...
-2019-02-03 05:41:00:876 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
-                                          data store com.hackorama.flags.data.MemoryDataStore
-...
-```
-
-  
-## API 
-
-  
-| Method | URL | Request | Response |
-|--------|-----|---------|----------|
-| GET | `/flags/`  |  | List of all country flags grouped by continent |
-| GET | `/flags/:id`  | | When id is a valid country, return the country flag |
-| GET | `/flags/:id`  | | When id is a valid continent, return all country flags for the continent |
   
 ## Design Approach 
 
