@@ -6,7 +6,7 @@
 
 Micro Service for Country Flags 
 
-![screenshot](https://github.com/hackorama/flags/blob/master/doc/flags.png|alt=screenshot)
+![screenshot](https://github.com/hackorama/flags/blob/master/doc/flags.png)
 
 ## Build  
  
