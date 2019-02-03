@@ -17,7 +17,7 @@ $ cd flags
  
 If you are behind a corp web proxy, please add a gradle.properties files with  the proxy settings
 
-Without the proxy set, you will see build errors failing to download the Maven dependencies, like Could not determine the dependencies of task, Unable to load Maven meta-data from https://jcenter.bintray.com�) 
+Without the proxy set, you will see build errors failing to download the Maven dependencies, like Could not determine the dependencies of task, Unable to load Maven meta-data from https://jcenter.bintray.com) 
 
 ```
 $ vi gradle.properties 
@@ -100,8 +100,8 @@ $ curl http://localhost:8080/flags/unknown
 ## Report error for invalid API paths 
 
 ```
-$ curl http://localhost:8080/unkown
-{"timestamp":"2019-02-03T02:38:35.185+0000","path":"/unkown","status":404,"error":"Not Found","message":null}
+$ curl http://localhost:8080/unknown
+{"timestamp":"2019-02-03T02:38:35.185+0000","path":"/unknown","status":404,"error":"Not Found","message":null}
 ```
   
 ## API 
@@ -109,9 +109,9 @@ $ curl http://localhost:8080/unkown
   
 | Method | URL | Request | Response |
 |--------|-----|---------|----------|
-| GET | /flags/  |  | List of all country flags grouped by continent |
-| GET | /flags/:id  | | When id is a valid country, return the country flag |
-| GET | /flags/:id  | | When id is a valid continent, return all country flags for the continent |
+| GET | `/flags/`  |  | List of all country flags grouped by continent |
+| GET | `/flags/:id`  | | When id is a valid country, return the country flag |
+| GET | `/flags/:id`  | | When id is a valid continent, return all country flags for the continent |
   
 ## Design Approach 
 
