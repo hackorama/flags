@@ -6,6 +6,8 @@
 
 Micro Service for Country Flags 
 
+[[https://github.com/hackorama/flags/blob/master/doc/flags.png|alt=screenshot]]
+
 ## Build  
  
 Requires Java 8 or later in path and web access for pulling in the maven dependencies. 
