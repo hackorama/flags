@@ -119,7 +119,7 @@ $ ./gradlew run
 ...
 ```
  
-## Get all flags 
+### Get all flags 
  
 ```
 $ curl http://localhost:8080/flags | jq
@@ -161,7 +161,7 @@ $ curl http://localhost:8080/flags | jq
   }
 }
 ```
-## Get all flags for a Continent
+### Get all flags for a Continent
 
 ```
 $ curl http://localhost:8080/flags/America | jq
@@ -174,7 +174,7 @@ $ curl http://localhost:8080/flags/America | jq
 }
 ```
 
-## Get flag for a Country 
+### Get flag for a Country 
 
 ```
 $ curl http://localhost:8080/flags/USA | jq
@@ -183,7 +183,7 @@ $ curl http://localhost:8080/flags/USA | jq
 }
 ```
 
-## Report error for invalid Country or Continent
+### Report error for invalid Country or Continent
 
 ```
 $ curl http://localhost:8080/flags/unknown | jq
@@ -192,7 +192,7 @@ $ curl http://localhost:8080/flags/unknown | jq
 }
 ```
 
-## Report error for invalid API paths 
+### Report error for invalid API paths 
 
 ```
 $ curl http://localhost:8080/unknown | jq
