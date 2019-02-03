@@ -122,17 +122,38 @@ Pragmatic adoption of Twelve-Factor App, SOLID, YAGNI, DRY principles in the des
 Complete separation of each service from underlying web framework and data store framework through interfaces.
 So different web frameworks and data stores can be easily used without changing the service code at all.  
 
-Services are composed fluently by injecting web, data and client implementation as needed.  
-
+Services are composed fluently by injecting web and data implementation as needed.  
 
 [Service] -- [Server Interface] --  [Spring or Sparkjava Server implementation]
 
 ```
+Service flagService = new FlagService().configureUsing(new SpringServer("Flag Service")).configureUsing(new MemoryDataStore()).start(); ``
+```
+
+Or use any of the other two already implemented data store types like JDBC or Key Value store.
+
+
+```
+Service flagService = new FlagService().configureUsing(new SpringServer("Flag Service")).configureUsing(new JDBCDataStore()).start(); 
 Service flagService = new FlagService().configureUsing(new SpringServer("Flag Service")).configureUsing(new MapdbDataStore()).start(); 
 ```
+
+Similiarly you can replace Spring with Spark, Vert.x or other implementations.
+
+```
+Service flagService = new FlagService().configureUsing(new SparkServer("Flag Service")).configureUsing(new MongoDataStore()).start(); 
+
+Service flagService = new FlagService().configureUsing(new VertxServer("Flag Service")).configureUsing(new RedisDataStore()).start(); 
+```
+
+The key design benefit is there is no direct dependency to any of the underlying web/data platform in the service package `com.hackorama.flags.service`
+
+The only third party package import in our service package is the `slf4j` logger. This makes the service implementation truly micro and completley portable to any web/data platform.
+
+
 ### Data design 
 
-Two key value tables are used.
+Two simple key value tables are used.
 
 - COUNTRY to FLAG  with One to One
 - CONTINENT to COUNTRIES is One to Many
