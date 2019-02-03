@@ -174,6 +174,8 @@ Usage : java Main [-jdbc] [-mapdb] [-h]
    -h     Print this help
 
 ```
+
+```
 $ ./gradlew run --args='-jdbc'
 ...
 
