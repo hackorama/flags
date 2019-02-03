@@ -57,37 +57,61 @@ $ ./gradlew build
 
 ```
 $ ./gradlew run --args='-h'
+
 Flag Service
 
 Usage : java Main [-jdbc] [-mapdb] [-h]
-   -jdbc  Use H2 JDBC Data Store
-   -mapdb Use Mapdb Key Value Data Store
-   -h     Print this help
+   -jdbc
+         Use the default embedded H2 JDBC Data Store
+   -jdbc [url] [driver] [user] [pass]
+         Connect to a JDBC Data Store like MySQL
+   -mapdb
+         Use Mapdb Key Value Data Store
+   -h
+         Print this help
 
 ```
+
+Default embedded JDBC data store H2
 
 ```
 $ ./gradlew run --args='-jdbc'
 ...
-
-2019-02-03 05:38:45:706 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
+2019-02-03 15:14:25:446 +0000 [main] INFO JDBCDataStore - Using Database H2 1.4.197 (2018-03-18)
+...
+2019-02-03 15:14:25:448 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer,
                                           data store com.hackorama.flags.data.jdbc.JDBCDataStore
 ...
 ```
+External JDBC data store MySQL
+
+```
+$ ./gradlew run --args='-jdbc jdbc:mysql://sql3.freesqldatabase.com/sql3275761 com.mysql.cj.jdbc.Driver sql3275761 [password]'
+...
+
+2019-02-03 15:00:24:324 +0000 [main] INFO JDBCDataStore - Using Database MySQL 5.5.54-0ubuntu0.12.04.1
+...
+2019-02-03 15:13:08:498 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer,
+                                          data store com.hackorama.flags.data.jdbc.JDBCDataStore
+...
+```
+
+Use embedded key value store MapDB
 
 ```
 $ ./gradlew run --args='-mapdb'
 ...
 
-2019-02-03 05:40:07:246 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
+2019-02-03 05:40:07:246 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer,
                                           data store com.hackorama.flags.data.mapdb.MapdbDataStore
 ...
 ```
+Default in memory data store
 
 ```
 $ ./gradlew run
 ...
-2019-02-03 05:41:00:876 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
+2019-02-03 05:41:00:876 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer,
                                           data store com.hackorama.flags.data.MemoryDataStore
 ...
 ```
@@ -256,6 +280,25 @@ Data store abstraction separates the service from actual underlying database.
 And service specific repository implementation sits between web service and data store
 
 [Service] -- [Repository] -- [DataStore Interface] -- [Key Value, Doc Store or JDBC Implementations of Data Store]
+
+
+## Audit Logs
+
+Standard `slf4j` logging with debug level providing additional details is enabled.
+
+Audit logs (like in the example below conections made to and by who) are enabled at `INFO` log level with special marker `AUDIT` for easy parsing by external log management and/or audit systems.
+
+```
+$ ./gradlew run --args='-jdbc jdbc:mysql://sql3.freesqldatabase.com/sql3275761 com.mysql.cj.jdbc.Driver sql3275761 [pass]'
+...
+
+2019-02-03 15:00:24:325 +0000 [main] INFO JDBCDataStore - AUDIT : Connecting to database at jdbc:mysql://sql3.freesqldatabase.com/sql3275761 as sql3275761
+...
+2019-02-03 15:02:30:979 +0000 [jetty-http@6cbcf243-22] INFO Handler - AUDIT : Connection from Optional[/127.0.0.1:56528] requesting GET /flags/USA
+...
+2019-02-03 15:02:52:391 +0000 [jetty-http@6cbcf243-17] INFO Handler - AUDIT : Connection from Optional[/127.0.0.1:56530] requesting GET /flags/
+...
+
 
 ## Metrics
 

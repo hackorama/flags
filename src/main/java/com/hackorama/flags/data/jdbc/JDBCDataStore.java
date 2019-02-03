@@ -68,6 +68,7 @@ public class JDBCDataStore implements DataStore {
         conn = (user == null || password == null) ? DriverManager.getConnection(url)
                 : DriverManager.getConnection(url, user, password);
         logger.info("Using Database {} {}", conn.getMetaData().getDatabaseProductName(), conn.getMetaData().getDatabaseProductVersion());
+        logger.info("AUDIT : Connecting to database at {} as {}", url, user == null ? "default user" : user);
         usingPostgresql = conn.getMetaData().getURL().toLowerCase().contains("postgresql"); // TODO improve
     }
 

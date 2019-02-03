@@ -78,6 +78,8 @@ public class Handler {
     public Mono<ServerResponse> router(ServerRequest req) throws InterruptedException, ExecutionException,
             IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
+        logger.info("AUDIT : Connection from {} requesting {} {}", req.remoteAddress(), req.methodName(), req.path());
+
         com.hackorama.flags.common.Request request = new com.hackorama.flags.common.Request(
                 req.bodyToMono(String.class).toFuture().get(), req.pathVariables()); // TODO future get
         String matchingPath = getMatchingPath(handlerMap.get(HttpMethod.valueOf(req.methodName())), req.path(),
