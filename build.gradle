@@ -23,6 +23,8 @@ dependencies {
     implementation 'com.mashape.unirest:unirest-java:1.4.9' // rest client
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.6' // rest client caching
 
+    implementation 'io.dropwizard.metrics:metrics-core:4.0.5' // metrics reporting
+
     implementation 'commons-dbutils:commons-dbutils:1.7' // jdbc utils
     implementation 'mysql:mysql-connector-java:8.0.14' // jdbc drivers
     implementation 'org.mapdb:mapdb:3.0.7' // embedded key value database

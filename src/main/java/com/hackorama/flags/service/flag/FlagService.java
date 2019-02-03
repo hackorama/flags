@@ -12,6 +12,7 @@ import com.hackorama.flags.common.Response;
 import com.hackorama.flags.common.Util;
 import com.hackorama.flags.data.DataStore;
 import com.hackorama.flags.data.MemoryDataStore;
+import com.hackorama.flags.metrics.MetricsTracker;
 import com.hackorama.flags.server.Server;
 import com.hackorama.flags.service.Service;
 import com.hackorama.flags.service.flag.data.FlagRepository;
@@ -45,6 +46,7 @@ public class FlagService implements Service {
         } else {
             String resultJson = repository.getFlagByCountryOrContinent(id);
             if (resultJson != null) {
+                updateMetrics(id);
                 return new Response(resultJson);
             }
         }
@@ -58,6 +60,10 @@ public class FlagService implements Service {
 
     private static void setStore(DataStore dataStore) {
         FlagService.dataStore = dataStore;
+    }
+
+    private static void updateMetrics(String countryOrContinent) {
+        MetricsTracker.getInstance().updateFlagCount(countryOrContinent);
     }
 
     @Override
@@ -85,6 +91,18 @@ public class FlagService implements Service {
         return this;
     }
 
+    private void initData() {
+        try {
+            DataLoader.initializeData(repository, FLAGS_DATA_FILE);
+        } catch (IOException e) {
+            throw new RuntimeException("FATAL Data load failed", e);
+        }
+    }
+
+    private void initMetrics() {
+        MetricsTracker.getInstance().report(1);
+    }
+
     private void initRepository() {
         repository = new FlagRepository(dataStore);
     }
@@ -97,11 +115,8 @@ public class FlagService implements Service {
         logger.info("Starting flag service using server {}, data store {}", server.getClass().getName(),
                 dataStore == null ? "NULL" : dataStore.getClass().getName());
         initRepository();
-        try {
-            DataLoader.initializeData(repository, FLAGS_DATA_FILE);
-        } catch (IOException e) {
-            throw new RuntimeException("FATL Data load failed", e);
-        }
+        initData();
+        initMetrics();
         server.start();
         return this;
     }

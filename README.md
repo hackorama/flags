@@ -142,6 +142,49 @@ And service specific repository implementation sits between web service and data
 
 [Service] -- [Repository] -- [DataStore Interface] -- [Key Value, Doc Store or JDBC Implementations of Data Store]
 
+## Metrics
+
+Flag metrics, reported to the console every second 
+
+
+```
+$ ./gradlew build 
+$ ./gradlew run
+
+...
+...
+...
+2/3/19 3:40:42 AM ==============================================================
+
+-- Meters ----------------------------------------------------------------------
+America
+             count = 6
+         mean rate = 0.35 events/second
+     1-minute rate = 1.02 events/second
+     5-minute rate = 1.16 events/second
+    15-minute rate = 1.19 events/second
+Asia
+             count = 3
+         mean rate = 0.36 events/second
+     1-minute rate = 0.60 events/second
+     5-minute rate = 0.60 events/second
+    15-minute rate = 0.60 events/second
+UK
+             count = 5
+         mean rate = 0.16 events/second
+     1-minute rate = 0.54 events/second
+     5-minute rate = 0.74 events/second
+    15-minute rate = 0.78 events/second
+USA
+             count = 5
+         mean rate = 0.11 events/second
+     1-minute rate = 0.42 events/second
+     5-minute rate = 0.70 events/second
+    15-minute rate = 0.77 events/second
+
+```
+
+
 ## Testing 
 
 Integrated into Gradle build 
