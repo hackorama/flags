@@ -72,6 +72,14 @@ public class FlagService implements Service {
         MetricsTracker.getInstance().updateFlagCount(countryOrContinent);
     }
 
+    private void checkServer() {
+        if (server == null) {
+            throw new RuntimeException("Please configure a server before starting the service");
+        }
+        logger.info("Starting flag service using server {}, data store {}", server.getClass().getName(),
+                dataStore == null ? "NULL" : dataStore.getClass().getName());
+    }
+
     @Override
     public Service configureUsing(DataStore dataStore) {
         FlagService.setStore(dataStore);
@@ -109,11 +117,7 @@ public class FlagService implements Service {
 
     @Override
     public Service start() {
-        if (server == null) {
-            throw new RuntimeException("Please configure a server before starting the servoce");
-        }
-        logger.info("Starting flag service using server {}, data store {}", server.getClass().getName(),
-                dataStore == null ? "NULL" : dataStore.getClass().getName());
+        checkServer();
         initRepository();
         initData();
         initMetrics();
