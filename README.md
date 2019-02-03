@@ -285,7 +285,7 @@ And service specific repository implementation sits between web service and data
 
 As explained in data design above, to target any type of underlying data store a simple one to one or one to many key value association is used.
 
-Here is how it looks when an RDBMS liek MySQL is used as the data store.
+Here is how it looks when an RDBMS like MySQL is used as the data store.
 
 ```
 > Tables_in_flags|
@@ -330,17 +330,18 @@ $ ./gradlew run --args='-jdbc jdbc:mysql://localhost/flags com.mysql.cj.jdbc.Dri
 ...
 2019-02-03 15:02:52:391 +0000 [jetty-http@6cbcf243-17] INFO Handler - AUDIT : Connection from Optional[/127.0.0.1:56530] requesting GET /flags/
 ...
+```
 
 
-## Metrics
+## General Application Metrics
 
 Flag metrics, reported to the console every second 
 
 
 ```
 $ ./gradlew build 
-$ ./gradlew run
 
+$ ./gradlew run
 ...
 ...
 ...
@@ -372,6 +373,36 @@ USA
      5-minute rate = 0.70 events/second
     15-minute rate = 0.77 events/second
 
+```
+
+## Performance Metrics
+
+The API request response metrics are also reported to the console.
+
+```
+$ ./gradlew build 
+
+$ ./gradlew run
+...
+...
+...
+-- Timers ----------------------------------------------------------------------
+Request Response Performance
+             count = 38
+         mean rate = 0.19 calls/second
+     1-minute rate = 0.37 calls/second
+     5-minute rate = 0.11 calls/second
+    15-minute rate = 0.04 calls/second
+               min = 46.12 milliseconds
+               max = 2204.37 milliseconds
+              mean = 863.85 milliseconds
+            stddev = 851.34 milliseconds
+            median = 437.45 milliseconds
+              75% <= 1967.30 milliseconds
+              95% <= 2176.05 milliseconds
+              98% <= 2204.37 milliseconds
+              99% <= 2204.37 milliseconds
+            99.9% <= 2204.37 milliseconds
 ```
 
 

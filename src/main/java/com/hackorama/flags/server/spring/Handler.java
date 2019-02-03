@@ -23,6 +23,7 @@ import reactor.core.publisher.Mono;
 
 import com.hackorama.flags.common.HttpMethod;
 import com.hackorama.flags.common.Util;
+import com.hackorama.flags.metrics.MetricsTracker;
 
 /**
  * Spring route handler
@@ -77,24 +78,30 @@ public class Handler {
 
     public Mono<ServerResponse> router(ServerRequest req) throws InterruptedException, ExecutionException,
             IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        MetricsTracker.getInstance().responsePerfTrackingBegin();
+        try {
 
-        logger.info("AUDIT : Connection from {} requesting {} {}", req.remoteAddress(), req.methodName(), req.path());
+            logger.info("AUDIT : Connection from {} requesting {} {}", req.remoteAddress(), req.methodName(),
+                    req.path());
 
-        com.hackorama.flags.common.Request request = new com.hackorama.flags.common.Request(
-                req.bodyToMono(String.class).toFuture().get(), req.pathVariables()); // TODO future get
-        String matchingPath = getMatchingPath(handlerMap.get(HttpMethod.valueOf(req.methodName())), req.path(),
-                req.pathVariables());
-        logger.debug("Routing request {} on thread id {} thread name : {} ", req.path(), Thread.currentThread().getId(),
-                Thread.currentThread().getName());
-        if (matchingPath != null) {
-            com.hackorama.flags.common.Response response = (com.hackorama.flags.common.Response) handlerMap
-                    .get(HttpMethod.valueOf(req.methodName())).get(matchingPath).apply(request);
-            BodyBuilder res = ServerResponse.status(response.getStatus());
-            return res.contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(response.getBody()));
-        } else {
-            BodyBuilder res = ServerResponse.status(HttpURLConnection.HTTP_NOT_FOUND);
-            return res.contentType(MediaType.APPLICATION_JSON)
-                    .body(BodyInserters.fromObject(Util.toJsonString("message", "404 Not found")));
+            com.hackorama.flags.common.Request request = new com.hackorama.flags.common.Request(
+                    req.bodyToMono(String.class).toFuture().get(), req.pathVariables()); // TODO future get
+            String matchingPath = getMatchingPath(handlerMap.get(HttpMethod.valueOf(req.methodName())), req.path(),
+                    req.pathVariables());
+            logger.debug("Routing request {} on thread id {} thread name : {} ", req.path(),
+                    Thread.currentThread().getId(), Thread.currentThread().getName());
+            if (matchingPath != null) {
+                com.hackorama.flags.common.Response response = (com.hackorama.flags.common.Response) handlerMap
+                        .get(HttpMethod.valueOf(req.methodName())).get(matchingPath).apply(request);
+                BodyBuilder res = ServerResponse.status(response.getStatus());
+                return res.contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(response.getBody()));
+            } else {
+                BodyBuilder res = ServerResponse.status(HttpURLConnection.HTTP_NOT_FOUND);
+                return res.contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromObject(Util.toJsonString("message", "404 Not found")));
+            }
+        } finally {
+            MetricsTracker.getInstance().responsePerfTrackingEnd();
         }
     }
 
