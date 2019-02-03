@@ -18,9 +18,7 @@ $ git clone git@github.com:hackorama/flags.git
 $ cd flags 
 ```
  
-If you are behind a corp web proxy, please add a gradle.properties files with  the proxy settings
-
-Without the proxy set, you will see build errors failing to download the Maven dependencies, like : `Could not determine the dependencies of task, Unable to load Maven meta-data from https://jcenter.bintray.com `
+If you are behind a corporate web proxy, please add a `gradle.properties` file with your proxy settings.
 
 ```
 $ vi gradle.properties 
@@ -29,6 +27,9 @@ systemProp.http.proxyPort=<port>
 systemProp.https.proxyHost=<host>
 systemProp.https.proxyPort=<port>
 ```
+
+> Without the proxy set, you will see build errors failing to download the Maven dependencies, like : `Could not determine the dependencies of task, Unable to load Maven meta-data from https://jcenter.bintray.com `
+
 
 ```
 $ ./gradlew build 
