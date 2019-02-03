@@ -1,6 +1,7 @@
 # dot files except .gitignore 
 .*
 !.gitignore
+!.travis.yml
 
 # java 
 *.class
