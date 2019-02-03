@@ -179,7 +179,8 @@ Usage : java Main [-jdbc] [-mapdb] [-h]
 $ ./gradlew run --args='-jdbc'
 ...
 
-2019-02-03 05:38:45:706 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, data store com.hackorama.flags.data.jdbc.JDBCDataStore
+2019-02-03 05:38:45:706 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
+                                          data store com.hackorama.flags.data.jdbc.JDBCDataStore
 ...
 ```
 
@@ -187,19 +188,18 @@ $ ./gradlew run --args='-jdbc'
 $ ./gradlew run --args='-mapdb'
 ...
 
-2019-02-03 05:40:07:246 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, data store com.hackorama.flags.data.mapdb.MapdbDataStore
-2019-02-03 05:40:07:251 +0000 [main] INFO DataLoader - Iniatializing the store
+2019-02-03 05:40:07:246 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
+                                          data store com.hackorama.flags.data.mapdb.MapdbDataStore
 ...
 ```
 
 ```
 $ ./gradlew run
 ...
-2019-02-03 05:41:00:876 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, data store com.hackorama.flags.data.MemoryDataStore
-2019-02-03 05:41:00:880 +0000 [main] INFO DataLoader - Iniatializing the store
-2019-02-03 05:41:00:905 +0000 [main] INFO MemoryDataStore - Created multi key data store CONTINENT_COUNTRIES
-2019-02-03 05:41:00:928 +0000 [main] INFO MemoryDataStore - Created data store COUNTRY_FLAG
+2019-02-03 05:41:00:876 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, 
+                                          data store com.hackorama.flags.data.MemoryDataStore
 ...
+```
 
   
 ## API 
