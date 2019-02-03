@@ -2,6 +2,8 @@ package com.hackorama.flags.service.flag;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.SQLException;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,9 +15,10 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import com.hackorama.flags.common.TestUtil;
+import com.hackorama.flags.data.MemoryDataStore;
 
 /**
- * Tests for Flag service
+ * Tests for Flag service using default in memory data store
  *
  * @author Kishan Thomas (kishan.thomas@gmail.com)
  *
@@ -24,8 +27,13 @@ public class FlagServiceTest {
 
     private static final String DEFAULT_SERVER_ENDPOINT = TestUtil.defaultServerEndpoint();
 
+    protected void setDataStore() throws SQLException {
+        TestUtil.setDataStore(new MemoryDataStore());
+    }
+
     @Before
     public void setUp() throws Exception {
+        setDataStore();
         TestUtil.initFlagServiceInstance();
     }
 

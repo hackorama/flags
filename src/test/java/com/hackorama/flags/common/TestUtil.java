@@ -20,7 +20,7 @@ public class TestUtil {
     private static final int DEFAULT_SERVER_PORT = 8080;
     private static final String DEFAULT_SERVER_ENDPOINT = "http://127.0.0.1:" + DEFAULT_SERVER_PORT;
 
-    private static Server server = null;
+    private static volatile Server server = null;
     private static DataStore dataStore = null;
     private static volatile Service service = null;
 
@@ -47,7 +47,6 @@ public class TestUtil {
         initServer();
         return server;
     }
-
 
     public static Service initFlagServiceInstance() {
         initServer();
@@ -78,6 +77,10 @@ public class TestUtil {
             server.stop();
             TestUtil.waitForService();
         }
+        if(dataStore!= null) {
+            dataStore.clear();
+            dataStore.close();
+        }
         dataStore = null;
         service = null;
         server = null;
@@ -102,6 +105,10 @@ public class TestUtil {
 
     public static DataStore getDataStore() {
         return dataStore;
+    }
+
+    public static void setDataStore(DataStore dataStore) {
+        TestUtil.dataStore = dataStore;
     }
 
 }
