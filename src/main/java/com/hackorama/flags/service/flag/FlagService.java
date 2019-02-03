@@ -18,6 +18,12 @@ import com.hackorama.flags.service.Service;
 import com.hackorama.flags.service.flag.data.FlagRepository;
 import com.hackorama.flags.service.flag.data.loader.DataLoader;
 
+/**
+ * Flag Micro Service
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 public class FlagService implements Service {
 
     private static Logger logger = LoggerFactory.getLogger(FlagService.class);
@@ -64,12 +70,6 @@ public class FlagService implements Service {
 
     private static void updateMetrics(String countryOrContinent) {
         MetricsTracker.getInstance().updateFlagCount(countryOrContinent);
-    }
-
-    @Override
-    public Service attach(Service service) {
-        service.configureUsing(server);
-        return this;
     }
 
     @Override

@@ -3,6 +3,12 @@ package com.hackorama.flags.data;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Data store interface
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 public interface DataStore {
 
     public void clear();

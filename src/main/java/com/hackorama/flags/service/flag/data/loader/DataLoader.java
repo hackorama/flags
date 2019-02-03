@@ -12,6 +12,12 @@ import com.google.gson.stream.JsonReader;
 import com.hackorama.flags.common.Util;
 import com.hackorama.flags.service.flag.data.FlagRepository;
 
+/**
+ * Populate the data to the data store using the repository
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 public class DataLoader {
 
     private static Logger logger = LoggerFactory.getLogger(DataLoader.class);

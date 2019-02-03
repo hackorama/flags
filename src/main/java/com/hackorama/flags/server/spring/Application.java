@@ -6,6 +6,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+/**
+ * Spring Boot application
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 @SpringBootApplication
 public class Application {
 

@@ -16,6 +16,12 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
+/**
+ * An in memory simple data store implementation suitable for testing
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 public class MemoryDataStore  implements DataStore {
 
     private static Logger logger = LoggerFactory.getLogger(MemoryDataStore.class);

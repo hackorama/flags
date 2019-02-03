@@ -3,6 +3,12 @@ package com.hackorama.flags.common;
 
 import java.net.HttpURLConnection;
 
+/**
+ * Basic HTTP response, to avoid dependency on framework specific versions
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 public class Response {
 
     private int status = HttpURLConnection.HTTP_OK;

@@ -1,9 +1,14 @@
 package com.hackorama.flags.common;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Basic HTTP request, to avoid dependency on framework specific versions
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 public class Request {
 
     private String body;

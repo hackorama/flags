@@ -15,6 +15,12 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.hackorama.flags.common.HttpMethod;
 
+/**
+ * Wiring the route handlers
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 @Configuration
 public class Router {
 

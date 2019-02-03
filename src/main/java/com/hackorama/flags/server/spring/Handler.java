@@ -24,6 +24,12 @@ import reactor.core.publisher.Mono;
 import com.hackorama.flags.common.HttpMethod;
 import com.hackorama.flags.common.Util;
 
+/**
+ * Spring route handler
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 @Component
 public class Handler {
 

@@ -5,6 +5,12 @@ import java.util.function.Function;
 
 import com.hackorama.flags.common.HttpMethod;
 
+/**
+ * Web server with REST handler routing
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 public interface Server {
 
     public boolean start();

@@ -5,6 +5,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+/**
+ * Common utils
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 public class Util {
 
     private static JsonParser jsonParser = new JsonParser();

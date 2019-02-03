@@ -8,6 +8,12 @@ import com.google.gson.Gson;
 import com.hackorama.flags.common.Util;
 import com.hackorama.flags.data.DataStore;
 
+/**
+ * Flag data access repository
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 public class FlagRepository {
 
     private static final String COUNTRY_FLAG_STORE_NAME = "COUNTRY_FLAG";

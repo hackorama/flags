@@ -12,6 +12,12 @@ import com.hackorama.flags.server.spring.SpringServer;
 import com.hackorama.flags.service.Service;
 import com.hackorama.flags.service.flag.FlagService;
 
+/**
+ * Common test helpers
+ *
+ * @author Kishan Thomas (kishan.thomas@gmail.com)
+ *
+ */
 public class TestUtil {
 
     private static Logger logger = LoggerFactory.getLogger(TestUtil.class);
@@ -32,15 +38,6 @@ public class TestUtil {
 
     public static String defaultServerEndpoint() {
         return DEFAULT_SERVER_ENDPOINT;
-    }
-
-    public static boolean getEnv(String envName) {
-        return System.getenv(envName) != null;
-    }
-
-    public static String getEnv(String envName, String defaultValue) {
-        String value = System.getenv(envName);
-        return (value == null) ? defaultValue : value;
     }
 
     public static Server getServer() {
