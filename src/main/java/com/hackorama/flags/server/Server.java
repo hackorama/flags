@@ -13,12 +13,33 @@ import com.hackorama.flags.common.HttpMethod;
  */
 public interface Server {
 
+    /**
+     * Start the server
+     *
+     * @return
+     */
     public boolean start();
 
+    /**
+     * Stop the server
+     */
     public void stop();
 
+    /**
+     * Get the server name for reporting
+     *
+     * @return
+     */
     public String getName();
 
-    public void setRoutes(HttpMethod method, String path, Function<com.hackorama.flags.common.Request, com.hackorama.flags.common.Response> handler);
+    /**
+     * Register a route handler
+     *
+     * @param method  The HTTP method
+     * @param path    The request path
+     * @param handler The handler function
+     */
+    public void setRoutes(HttpMethod method, String path,
+            Function<com.hackorama.flags.common.Request, com.hackorama.flags.common.Response> handler);
 
 }

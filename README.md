@@ -419,3 +419,11 @@ Integrated into Gradle build
 - Gradle based builds
 - Github Travis and CodeCov integration
 
+## TODO
+
+* Complete JavaDoc
+  * All major interfaces are fully documented. 
+  * While implementation classes only have class level java doc, need to add method level java doc.
+* Custom Exceptions
+  * Wrap some of the exceptions and do better logging and handling
+* Address all `TODO`, `FIXME` in the code 
