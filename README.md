@@ -86,7 +86,7 @@ $ ./gradlew run --args='-jdbc'
 External JDBC data store MySQL
 
 ```
-$ ./gradlew run --args='-jdbc jdbc:mysql://sql3.freesqldatabase.com/sql3275761 com.mysql.cj.jdbc.Driver sql3275761 [password]'
+$ ./gradlew run --args='-jdbc jdbc:mysql://localhost/flags com.mysql.cj.jdbc.Driver test [password]'
 ...
 
 2019-02-03 15:00:24:324 +0000 [main] INFO JDBCDataStore - Using Database MySQL 5.5.54-0ubuntu0.12.04.1
@@ -281,6 +281,38 @@ And service specific repository implementation sits between web service and data
 
 [Service] -- [Repository] -- [DataStore Interface] -- [Key Value, Doc Store or JDBC Implementations of Data Store]
 
+#### Schema
+
+As explained in data design above, to target any type of underlying data store a simple one to one or one to many key value association is used.
+
+Here is how it looks when an RDBMS liek MySQL is used as the data store.
+
+```
+> Tables_in_flags|
+--------------------|
+CONTINENT_COUNTRIES |
+COUNTRY_FLAG        |
+```
+
+```
+> DESCRIBE COUNTRY_FLAG;
+
+Field|Type        |Null|Key|Default|Extra|
+-----|------------|----|---|-------|-----|
+k    |varchar(64) |NO  |PRI|       |     |
+v    |varchar(256)|YES |   |       |     |
+```
+
+```
+> DESCRIBE CONTINENT_COUNTRIES;
+Field|Type        |Null|Key|Default|Extra|
+-----|------------|----|---|-------|-----|
+k    |varchar(64) |YES |   |       |     |
+v    |varchar(256)|YES |   |       |     |
+```
+
+> The column names and types are created by Data Store implementations on first access automatically, this could be customized.
+
 
 ## Audit Logs
 
@@ -289,10 +321,10 @@ Standard `slf4j` logging with debug level providing additional details is enable
 Audit logs (like in the example below conections made to and by who) are enabled at `INFO` log level with special marker `AUDIT` for easy parsing by external log management and/or audit systems.
 
 ```
-$ ./gradlew run --args='-jdbc jdbc:mysql://sql3.freesqldatabase.com/sql3275761 com.mysql.cj.jdbc.Driver sql3275761 [pass]'
+$ ./gradlew run --args='-jdbc jdbc:mysql://localhost/flags com.mysql.cj.jdbc.Driver test [password]'
 ...
 
-2019-02-03 15:00:24:325 +0000 [main] INFO JDBCDataStore - AUDIT : Connecting to database at jdbc:mysql://sql3.freesqldatabase.com/sql3275761 as sql3275761
+2019-02-03 15:00:24:325 +0000 [main] INFO JDBCDataStore - AUDIT : Connecting to database at jdbc:mysql://localhost/flags as test 
 ...
 2019-02-03 15:02:30:979 +0000 [jetty-http@6cbcf243-22] INFO Handler - AUDIT : Connection from Optional[/127.0.0.1:56528] requesting GET /flags/USA
 ...
