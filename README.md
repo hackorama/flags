@@ -102,7 +102,7 @@ $ ./gradlew run
 
 ## Quick Test 
 
-Following curl examples uses three different services 
+Use `curl` for quick testing of the API, you can also optionally use `jq` for pretty printing the `JSON` response.
 
 ```
 $ ./gradlew build 
