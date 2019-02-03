@@ -155,6 +155,50 @@ $ curl http://localhost:8080/unknown | jq
   "message": null
 }
 ```
+
+## Deploy Options
+
+Select the data store to use.
+
+```
+$ ./gradlew build 
+```
+
+```
+$ ./gradlew run --args='-h'
+Flag Service
+
+Usage : java Main [-jdbc] [-mapdb] [-h]
+   -jdbc  Use H2 JDBC Data Store
+   -mapdb Use Mapdb Key Value Data Store
+   -h     Print this help
+
+```
+$ ./gradlew run --args='-jdbc'
+...
+
+2019-02-03 05:38:45:706 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, data store com.hackorama.flags.data.jdbc.JDBCDataStore
+...
+```
+
+```
+$ ./gradlew run --args='-mapdb'
+...
+
+2019-02-03 05:40:07:246 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, data store com.hackorama.flags.data.mapdb.MapdbDataStore
+2019-02-03 05:40:07:251 +0000 [main] INFO DataLoader - Iniatializing the store
+...
+```
+
+```
+$ ./gradlew run
+...
+2019-02-03 05:41:00:876 +0000 [main] INFO FlagService - Starting flag service using server com.hackorama.flags.server.spring.SpringServer, data store com.hackorama.flags.data.MemoryDataStore
+2019-02-03 05:41:00:880 +0000 [main] INFO DataLoader - Iniatializing the store
+2019-02-03 05:41:00:905 +0000 [main] INFO MemoryDataStore - Created multi key data store CONTINENT_COUNTRIES
+2019-02-03 05:41:00:928 +0000 [main] INFO MemoryDataStore - Created data store COUNTRY_FLAG
+...
+
   
 ## API 
 
@@ -182,13 +226,15 @@ Services are composed fluently by injecting web and data implementation as neede
 Service flagService = new FlagService().configureUsing(new SpringServer("Flag Service")).configureUsing(new MemoryDataStore()).start(); ``
 ```
 
-Or use any of the other two already implemented data store types like JDBC or Key Value store.
+Or use any of the other two already implemented data store types like JDBC or Key Value store. 
 
 
 ```
 Service flagService = new FlagService().configureUsing(new SpringServer("Flag Service")).configureUsing(new JDBCDataStore()).start(); 
 Service flagService = new FlagService().configureUsing(new SpringServer("Flag Service")).configureUsing(new MapdbDataStore()).start(); 
 ```
+
+> Please see `Deploy Options` section above where you can see the deployment of the same service with different data stores.
 
 Similiarly you can replace Spring with Spark, Vert.x or other implementations.
 

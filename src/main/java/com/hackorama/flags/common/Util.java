@@ -40,6 +40,14 @@ public class Util {
         return GSON;
     }
 
+    public static boolean usingJDBC(String[] args) {
+        return args.length > 0 && args[0].toLowerCase().contains("jdbc");
+    }
+
+    public static boolean usingMapDB(String[] args) {
+        return args.length > 0 && args[0].toLowerCase().contains("mapdb");
+    }
+
     public static String getEncoding() {
         return "UTF-8"; // TODO FIXME
     }
