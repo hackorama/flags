@@ -73,35 +73,87 @@ $ ./gradlew run
 ## Get all flags 
  
 ```
-$ curl http://localhost:8080/flags
-{"Asia":{"Bangladesh":"🇧🇩","Pakistan":"🇵🇰","China":"🇨🇳","India":"🇮🇳","Indonesia":"🇮🇩"},"Eu          rope":{"UK":"🇬🇧","Italy":"🇮🇹","France":"🇫🇷","      Germany":"🇩🇪","Russia":"🇷🇺"},"Africa":{"DR Congo":"🇨🇩","Egypt":"🇪🇬","South Africa":"🇿🇦","N          igeria":"🇳🇬","Ethiopia":"🇪🇹"},"America":{"Colom    bia":"🇨🇴","USA":"🇺🇸","Argentina":"🇦🇷","Brazil":"🇧🇷","Mexico":"🇲🇽"},"Oceania":{"New Zealand          ":"🇳🇿","Papua New Guinea":"🇵🇬","Fiji":"🇫🇯","A      ustralia":"🇦🇺","Solomon Islands":"🇸🇧"}}    hackorama@home
+$ curl http://localhost:8080/flags | jq
+{
+  "Asia": {
+    "Bangladesh": "🇧🇩"  ,
+    "Pakistan": "🇵🇰"  ,
+    "China": "🇨🇳"  ,
+    "India": "🇮🇳"  ,
+    "Indonesia": "🇮🇩"
+  },
+  "Europe": {
+    "UK": "🇬🇧"  ,
+    "Italy": "🇮🇹"  ,
+    "France": "🇫🇷"  ,
+    "Germany": "🇩🇪"  ,
+    "Russia": "🇷🇺"
+  },
+  "Africa": {
+    "DR Congo": "🇨🇩"  ,
+    "Egypt": "🇪🇬"  ,
+    "South Africa": "🇿🇦"  ,
+    "Nigeria": "🇳🇬"  ,
+    "Ethiopia": "🇪🇹"
+  },
+  "America": {
+    "Colombia": "🇨🇴"  ,
+    "USA": "🇺🇸"  ,
+    "Argentina": "🇦🇷"  ,
+    "Brazil": "🇧🇷"  ,
+    "Mexico": "🇲🇽"
+  },
+  "Oceania": {
+    "New Zealand": "🇳🇿"  ,
+    "Papua New Guinea": "🇵🇬"  ,
+    "Fiji": "🇫🇯"  ,
+    "Australia": "🇦🇺"  ,
+    "Solomon Islands": "🇸🇧"
+  }
+}
 ```
 ## Get all flags for a Continent
 
 ```
-$ curl http://localhost:8080/flags/America
-{"Colombia":"🇨🇴","USA":"🇺🇸","Argentina":"🇦🇷","Brazil":"🇧🇷","Mexico":"🇲🇽"}       
+$ curl http://localhost:8080/flags/America | jq
+{
+  "Colombia": "🇨🇴"  ,
+  "USA": "🇺🇸"  ,
+  "Argentina": "🇦🇷"  ,
+  "Brazil": "🇧🇷"  ,
+  "Mexico": "🇲🇽"
+}
 ```
 
 ## Get flag for a Country 
 
 ```
-$ curl http://localhost:8080/flags/USA
-{"USA":"🇺🇸"} 
+$ curl http://localhost:8080/flags/USA | jq
+{
+  "USA": "🇺🇸"
+}
 ```
 
 ## Report error for invalid Country or Continent
 
 ```
-$ curl http://localhost:8080/flags/unknown
-{"error":"Invalid country or continent"}
+$ curl http://localhost:8080/flags/unknown | jq
+{
+  "error": "Invalid country or continent"
+}
 ```
 
 ## Report error for invalid API paths 
 
 ```
-$ curl http://localhost:8080/unknown
-{"timestamp":"2019-02-03T02:38:35.185+0000","path":"/unknown","status":404,"error":"Not Found","message":null}
+$ curl http://localhost:8080/unknown | jq
+{
+  "timestamp": "2019-02-03T05:16:11.090+0000",
+  "path": "/unknown",
+  "status": 404,
+  "error": "Not Found",
+  "message": null
+}
 ```
   
 ## API 
@@ -211,7 +263,7 @@ USA
 Integrated into Gradle build 
 
 - JUnit    : build/reports/tests/test/index.html (100%) 
-- Coverage: build/reports/jacoco/test/html/index.html (83%) 
+- Coverage: build/reports/jacoco/test/html/index.html (~60%) 
 - SpotBugs : build/reports/spotbugs/main.html (0 errors)
 
 ## DevOps
